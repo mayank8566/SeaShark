@@ -239,4 +239,11 @@ if __name__ == "__main__":
     # Let's list all HTML files in the Frontend directory for reference
     html_files = [f for f in os.listdir(frontend_dir) if f.endswith('.html')]
     logger.info(f"Available HTML files: {html_files}")
-    uvicorn.run(app, host="127.0.0.1", port=5050) 
+    
+    # Get port from environment variable for cloud deployment (e.g., Render)
+    # Default to 5050 for local development
+    port = int(os.environ.get("PORT", 5050))
+    host = "0.0.0.0" if os.environ.get("PORT") else "127.0.0.1"
+    
+    logger.info(f"Starting server on {host}:{port}")
+    uvicorn.run(app, host=host, port=port) 
