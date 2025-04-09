@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore AI Models - SeaShark</title>
+    <link rel="icon" href="/assets/logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="styles/main.css?v=4">
+    <link rel="stylesheet" href="styles/sidebar.css?v=4">
+    <link rel="stylesheet" href="styles/chat.css?v=4">
+    <link rel="stylesheet" href="styles/animations.css?v=4">
+    <link rel="stylesheet" href="styles/responsive.css?v=4">
+    <link rel="stylesheet" href="styles/code.css?v=4">
+    <link rel="stylesheet" href="styles/explore-models.css?v=1">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <!-- Sidebar open button (outside of app-container) -->
+    <button id="sidebar-open-button" class="sidebar-open-button">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Sidebar overlay for mobile -->
+    <div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+    <!-- Main App Container -->
+    <div id="app-container" class="app-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <img src="/assets/logo.png" 
+                         alt="SeaShark" 
+                         class="logo-image" 
+                         onerror="this.src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAAsTAAALEwEAmpwYAAAC/ElEQVR4nO2WTUhUURTHf+fNjGmLNiVBC9sEQosWQVC0qU0Q1KYIWrWoTas2QdCHRIsIXLUoogjaRBAtWkQfqxaRRRG0KAiLisCyD3UGZ+a9mfv33HvmzYwz87yviO7id3nvnPu/5557z7kXlrCEYiGWn0QkIlJX6rq+wHGckEIIhP4LgWu6dD07STc2sfj8OTSjKQlQNI8ePYPjuIyObOKZ+Qg7YzB2CHVqPqYA50/vJX1jBMW9DHatgvZ6VNY1tM/GhPYvAlEfANM0I4lEYjgajQ6UGpVpmkQikSHHcd4NXx8zrGgUMnXc/A43XkJnA+ythZEIZDLQZMCkBQvI/Y5p/wlIJpMxTdMOlkMgmUwyMHAU1nQTzazFqIb0Ntjyra8a+Aa9u+CY76BHYmDcxJVzP2S/l4Bt2x2O4+wpVwFt5ihmVXXuu3OqHa4aUDdYINMPiaxPQMNl2xLXt1NFxQ/dtwqEjgKQyWScgYGBc0BZBGLRDMmE20+yjK5th+Yb0O4n7F72dBjEZsGR/cB0COhDILl5KwhT30b7vQNGvQjkUWAKjgTRf/sE7AX0q+AWXS0Rql+jfD+JmR+BdvClFCDXVRSBtLgFP7YK9jXCOxO6PPu3g6oGI6DgENzqg0/XoCabB39+/fAcK5qArpdhT4MAJxrgTAss/ycG3T2QDYH4FKhFU6BqB55TDzpgg2mq/Gqog4RX22HvoQXQTX4qfBUUJiBFVAJeRyRz9ZpHQqQsBBqYIa9CsAcszO5QD87jxKpgdQw+a3C7FdYshwY9nKJSIw6LL6F+HrQIHO7zoiF9FQ2ByB14cBT6H0DqdL4KSmAC7fEzRMvTqKoaaBXYdDy4Cmx4+wTe9MOLCRjUZP2JhWPC7DSMZ+PsTctswS1YMRtW2jA3TKHzKiGU7jdU98Ljh8FToGZBz2IwFNoXCTXuNnz5GWwaZQHQS4GnRVcB3oTvdnCz0MlHQGE2M1oJBGwP+pTXUQYKDlWCWGYj5aLUeYwlLP0BUZkYh1WzNjsAAAAASUVORK5CYII='; this.onerror='';">
+                    <i class="fas fa-robot" style="display: none;"></i>
+                    <span>SeaShark</span>
+                </div>
+                <button class="sidebar-toggle" id="sidebar-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+
+            <!-- Navigation -->
+            <div class="sidebar-nav">
+                <a href="index.html" class="sidebar-nav-item">
+                    <i class="fas fa-comment"></i>
+                    <span>Chat</span>
+                </a>
+                <a href="explore-models.html" class="sidebar-nav-item active">
+                    <i class="fas fa-robot"></i>
+                    <span>Explore Models</span>
+                </a>
+                <a href="pricing.html" class="sidebar-nav-item">
+                    <i class="fas fa-tag"></i>
+                    <span>Pricing</span>
+                </a>
+                <a href="settings.html" class="sidebar-nav-item">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+            </div>
+
+            <div class="sidebar-footer">
+                <div class="upgrade-plan">
+                    <a href="pricing.html" class="upgrade-button">
+                        <i class="fas fa-crown"></i>
+                        <span>Upgrade Plan</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="content-container">
+            <div class="content-header">
+                <div class="header-left">
+                    <button class="mobile-menu-button">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h1 class="page-title">Explore AI Models</h1>
+                </div>
+                <div class="header-actions">
+                    <div class="user-profile">
+                        <img src="https://ui-avatars.com/api/?name=User&background=3b82f6&color=fff" alt="User"
+                            id="user-avatar">
+                        <!-- User dropdown menu -->
+                        <div class="dropdown-menu">
+                            <div class="dropdown-menu-item" data-action="explore">
+                                <i class="fas fa-robot"></i>
+                                <span>Explore Models</span>
+                            </div>
+                            <div class="dropdown-menu-item" data-action="customize">
+                                <i class="fas fa-sliders-h"></i>
+                                <span>Customize Appearance</span>
+                            </div>
+                            <div class="dropdown-menu-item" data-action="settings">
+                                <i class="fas fa-cog"></i>
+                                <span>Settings</span>
+                            </div>
+                            <div class="dropdown-menu-divider"></div>
+                            <div class="dropdown-menu-item" data-action="upgrade">
+                                <i class="fas fa-crown"></i>
+                                <span>Upgrade Plan</span>
+                            </div>
+                            <div class="dropdown-menu-divider"></div>
+                            <div class="dropdown-menu-item" data-action="logout" id="logout-menu-item">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span>Log out</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="explore-content">
+                <div class="explore-intro">
+                    <h2>Select Your AI Assistant</h2>
+                    <p>Choose from our selection of powerful AI models to help with your tasks</p>
+                </div>
+
+                <div class="models-grid">
+                    <!-- GPT-4 Card -->
+                    <div class="model-card premium">
+                        <div class="model-header">
+                            <div class="model-icon">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div class="model-badge premium-badge">Premium</div>
+                        </div>
+                        <div class="model-body">
+                            <h3 class="model-name">GPT-4 Turbo</h3>
+                            <p class="model-description">
+                                OpenAI's most advanced model with enhanced reasoning capabilities and context handling.
+                            </p>
+                            <div class="model-features">
+                                <div class="feature">
+                                    <i class="fas fa-bolt"></i>
+                                    <span>High reasoning abilities</span>
+                                </div>
+                                <div class="feature">
+                                    <i class="fas fa-file-alt"></i>
+                                    <span>128k token context</span>
+                                </div>
+                                <div class="feature">
+                                    <i class="fas fa-code"></i>
+                                    <span>Advanced coding assistance</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="model-footer">
+                            <button class="model-select-btn premium-btn">
+                                <i class="fas fa-crown"></i>
+                                <span>Premium Plan</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Claude Card -->
+                    <div class="model-card premium">
+                        <div class="model-header">
+                            <div class="model-icon claude">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div class="model-badge premium-badge">Premium</div>
+                        </div>
+                        <div class="model-body">
+                            <h3 class="model-name">Claude 3 Opus</h3>
+                            <p class="model-description">
+                                Anthropic's flagship model with exceptional natural language understanding and long context.
+                            </p>
+                            <div class="model-features">
+                                <div class="feature">
+                                    <i class="fas fa-file-alt"></i>
+                                    <span>200k token context</span>
+                                </div>
+                                <div class="feature">
+                                    <i class="fas fa-brain"></i>
+                                    <span>Nuanced reasoning</span>
+                                </div>
+                                <div class="feature">
+                                    <i class="fas fa-shield-alt"></i>
+                                    <span>Enhanced safety</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="model-footer">
+                            <button class="model-select-btn premium-btn">
+                                <i class="fas fa-crown"></i>
+                                <span>Premium Plan</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- DeepSeek Card -->
+                    <div class="model-card standard">
+                        <div class="model-header">
+                            <div class="model-icon deepseek">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div class="model-badge standard-badge">Standard</div>
+                        </div>
+                        <div class="model-body">
+                            <h3 class="model-name">DeepSeek Coder</h3>
+                            <p class="model-description">
+                                Specialized model for coding tasks with deep understanding of multiple programming languages.
+                            </p>
+                            <div class="model-features">
+                                <div class="feature">
+                                    <i class="fas fa-code"></i>
+                                    <span>Expert code generation</span>
+                                </div>
+                                <div class="feature">
+                                    <i class="fas fa-bug"></i>
+                                    <span>Advanced debugging</span>
+                                </div>
+                                <div class="feature">
+                                    <i class="fas fa-project-diagram"></i>
+                                    <span>Architecture planning</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="model-footer">
+                            <button class="model-select-btn standard-btn">
+                                <i class="fas fa-check"></i>
+                                <span>Select</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Llama 3 Card -->
+                    <div class="model-card standard">
+                        <div class="model-header">
+                            <div class="model-icon llama">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div class="model-badge standard-badge">Standard</div>
+                        </div>
+                        <div class="model-body">
+                            <h3 class="model-name">Llama 3 70B</h3>
+                            <p class="model-description">
+                                Meta's open model with impressive performance across a wide range of tasks.
+                            </p>
+                            <div class="model-features">
+                                <div class="feature">
+                                    <i class="fas fa-pen"></i>
+                                    <span>Content creation</span>
+                                </div>
+                                <div class="feature">
+                                    <i class="fas fa-globe"></i>
+                                    <span>Multilingual support</span>
+                                </div>
+                                <div class="feature">
+                                    <i class="fas fa-tachometer-alt"></i>
+                                    <span>Fast response times</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="model-footer">
+                            <button class="model-select-btn standard-btn">
+                                <i class="fas fa-check"></i>
+                                <span>Select</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Mistral Card -->
+                    <div class="model-card free">
+                        <div class="model-header">
+                            <div class="model-icon mistral">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div class="model-badge free-badge">Free</div>
+                        </div>
+                        <div class="model-body">
+                            <h3 class="model-name">Mistral 7B</h3>
+                            <p class="model-description">
+                                Compact yet powerful model for general-purpose tasks with excellent efficiency.
+                            </p>
+                            <div class="model-features">
+                                <div class="feature">
+                                    <i class="fas fa-bolt"></i>
+                                    <span>Efficient performance</span>
+                                </div>
+                                <div class="feature">
+                                    <i class="fas fa-feather"></i>
+                                    <span>Lightweight</span>
+                                </div>
+                                <div class="feature">
+                                    <i class="fas fa-battery-full"></i>
+                                    <span>Lower resource usage</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="model-footer">
+                            <button class="model-select-btn free-btn active">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Current Model</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="model-comparison">
+                    <h2>Model Capabilities Comparison</h2>
+                    <div class="comparison-table-container">
+                        <table class="comparison-table">
+                            <thead>
+                                <tr>
+                                    <th>Model</th>
+                                    <th>Context Length</th>
+                                    <th>Reasoning</th>
+                                    <th>Coding</th>
+                                    <th>Creative Writing</th>
+                                    <th>Plan</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>GPT-4 Turbo</td>
+                                    <td>128k tokens</td>
+                                    <td class="rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></td>
+                                    <td class="rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></td>
+                                    <td class="rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></td>
+                                    <td>Premium</td>
+                                </tr>
+                                <tr>
+                                    <td>Claude 3 Opus</td>
+                                    <td>200k tokens</td>
+                                    <td class="rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></td>
+                                    <td class="rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></td>
+                                    <td class="rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></td>
+                                    <td>Premium</td>
+                                </tr>
+                                <tr>
+                                    <td>DeepSeek Coder</td>
+                                    <td>32k tokens</td>
+                                    <td class="rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></td>
+                                    <td class="rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></td>
+                                    <td class="rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></td>
+                                    <td>Standard</td>
+                                </tr>
+                                <tr>
+                                    <td>Llama 3 70B</td>
+                                    <td>8k tokens</td>
+                                    <td class="rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></td>
+                                    <td class="rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></td>
+                                    <td class="rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></td>
+                                    <td>Standard</td>
+                                </tr>
+                                <tr>
+                                    <td>Mistral 7B</td>
+                                    <td>8k tokens</td>
+                                    <td class="rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></td>
+                                    <td class="rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></td>
+                                    <td class="rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></td>
+                                    <td>Free</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+
+    <!-- App JS -->
+    <script src="js/firebase-config.js?v=4"></script>
+    <script src="js/app.js?v=4"></script>
+    <script src="js/explore-models.js?v=1"></script>
+</body>
+
+</html> 

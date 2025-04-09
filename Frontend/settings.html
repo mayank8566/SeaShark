@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - SeaShark</title>
+    <link rel="icon" href="/assets/logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="/styles/animations.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Settings specific styles */
+        body {
+            overflow: auto;
+            height: auto;
+            min-height: 100vh;
+            background-color: var(--bg-color-secondary);
+        }
+        
+        /* Dark theme specific overrides */
+        body.dark-theme .toggle-slider:before {
+            background-color: var(--dark-bg-color-secondary);
+        }
+        
+        body.dark-theme .dropdown-select {
+            background-color: var(--dark-bg-color);
+            border-color: var(--dark-border-color);
+            color: var(--dark-text-color);
+        }
+        
+        body.dark-theme .dropdown-select option {
+            background-color: var(--dark-bg-color);
+            color: var(--dark-text-color);
+        }
+        
+        body.dark-theme .manage-button,
+        body.dark-theme .archive-all-button,
+        body.dark-theme .logout-button {
+            background-color: var(--dark-bg-color);
+            border-color: var(--dark-border-color);
+            color: var(--dark-text-color);
+        }
+        
+        body.dark-theme .manage-button:hover,
+        body.dark-theme .archive-all-button:hover,
+        body.dark-theme .logout-button:hover {
+            background-color: var(--dark-hover-bg);
+        }
+        
+        .settings-container {
+            background-color: var(--bg-color);
+            width: 100%;
+            max-width: 700px;
+            margin: 50px auto;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px var(--shadow-color);
+            overflow: hidden;
+            display: flex;
+            min-height: 600px;
+        }
+        
+        .settings-sidebar {
+            width: 200px;
+            background-color: var(--bg-color);
+            border-right: 1px solid var(--border-color);
+            padding: 20px 0;
+        }
+        
+        .settings-content {
+            flex: 1;
+            padding: 20px;
+            background-color: var(--bg-color);
+            overflow-y: auto;
+        }
+        
+        .settings-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .settings-header h2 {
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+        
+        .close-settings {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-color-secondary);
+            cursor: pointer;
+        }
+        
+        .close-settings:hover {
+            color: var(--text-color);
+        }
+        
+        .settings-nav {
+            margin-top: 20px;
+        }
+        
+        .settings-nav-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            color: var(--text-color);
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .settings-nav-item:hover {
+            background-color: var(--hover-bg);
+        }
+        
+        .settings-nav-item.active {
+            background-color: var(--hover-bg);
+            color: var(--color-primary);
+        }
+        
+        .settings-nav-item i {
+            margin-right: 12px;
+            width: 20px;
+            text-align: center;
+            color: var(--text-color-secondary);
+        }
+        
+        .settings-nav-item.active i {
+            color: var(--color-primary);
+        }
+        
+        .settings-section {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .settings-section h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .settings-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .settings-item-label {
+            font-weight: 500;
+        }
+        
+        .dropdown-select {
+            padding: 8px 12px;
+            border-radius: 6px;
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            min-width: 150px;
+            font-size: 0.9rem;
+        }
+        
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 46px;
+            height: 24px;
+        }
+        
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--border-color);
+            border-radius: 24px;
+            transition: .4s;
+        }
+        
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            border-radius: 50%;
+            transition: .4s;
+        }
+        
+        input:checked + .toggle-slider {
+            background-color: var(--color-primary);
+        }
+        
+        input:checked + .toggle-slider:before {
+            transform: translateX(22px);
+        }
+        
+        .button-group {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .danger-button {
+            padding: 10px 16px;
+            background-color: var(--bg-color);
+            border: 1px solid var(--color-danger);
+            color: var(--color-danger);
+            border-radius: 6px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+        
+        .danger-button:hover {
+            background-color: rgba(239, 68, 68, 0.1);
+        }
+        
+        .manage-button {
+            padding: 10px 16px;
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            border-radius: 6px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+        
+        .manage-button:hover {
+            background-color: var(--hover-bg);
+        }
+        
+        .archive-all-button, .delete-all-button {
+            width: 100%;
+            padding: 10px 16px;
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            border-radius: 6px;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+        
+        .archive-all-button:hover {
+            background-color: var(--hover-bg);
+        }
+        
+        .delete-all-button {
+            background-color: var(--color-danger);
+            border-color: var(--color-danger);
+            color: white;
+        }
+        
+        .delete-all-button:hover {
+            background-color: rgba(239, 68, 68, 0.9);
+        }
+        
+        .logout-button {
+            width: 100%;
+            padding: 10px 16px;
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            border-radius: 6px;
+            font-weight: 500;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        
+        .logout-button:hover {
+            background-color: var(--hover-bg);
+        }
+        
+        /* New styles for added elements */
+        .text-input {
+            padding: 8px 12px;
+            border-radius: 6px;
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            width: 100%;
+            font-size: 0.9rem;
+        }
+        
+        body.dark-theme .text-input {
+            background-color: var(--dark-bg-color);
+            border-color: var(--dark-border-color);
+            color: var(--dark-text-color);
+        }
+        
+        .save-button {
+            padding: 10px 16px;
+            background-color: var(--color-primary);
+            border: none;
+            color: white;
+            border-radius: 6px;
+            font-weight: 500;
+            cursor: pointer;
+            margin-top: 15px;
+            width: 100%;
+        }
+        
+        .save-button:hover {
+            background-color: var(--color-primary-dark);
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        
+        .change-password-form {
+            margin-top: 10px;
+        }
+        
+        .settings-section h3 {
+            margin-top: 5px;
+            margin-bottom: 15px;
+            font-size: 1rem;
+            color: var(--text-color);
+        }
+        
+        body.dark-theme .settings-section h3 {
+            color: var(--dark-text-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="settings-container">
+        <div class="settings-sidebar">
+            <div class="settings-header">
+                <h2>Settings</h2>
+                <button class="close-settings" onclick="window.location.href='/'">×</button>
+            </div>
+            <div class="settings-nav">
+                <div class="settings-nav-item active" data-section="general">
+                    <i class="fas fa-cog"></i>
+                    <span>General</span>
+                </div>
+                <div class="settings-nav-item" data-section="personalization">
+                    <i class="fas fa-palette"></i>
+                    <span>Personalization</span>
+                </div>
+                <div class="settings-nav-item" data-section="profile">
+                    <i class="fas fa-user-cog"></i>
+                    <span>Socials</span>
+                </div>
+                <div class="settings-nav-item" data-section="security">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Security</span>
+                </div>
+            </div>
+        </div>
+        <div class="settings-content">
+            <div class="settings-section" id="general-section">
+                <div class="settings-item">
+                    <div class="settings-item-label">Theme</div>
+                    <select class="dropdown-select" id="theme-select">
+                        <option value="dark">Dark</option>
+                        <option value="light">Light</option>
+                        <option value="system">System</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="settings-section">
+                <div class="settings-item">
+                    <div class="settings-item-label">Always show code when using data analyst</div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="show-code-toggle">
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+            </div>
+            
+            <div class="settings-section">
+                <div class="settings-item">
+                    <div class="settings-item-label">Show follow up suggestions in chats</div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="follow-up-toggle" checked>
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+            </div>
+            
+            <div class="settings-section" id="language-section">
+                <h3>Language Settings</h3>
+                <div class="settings-item">
+                    <div class="settings-item-label">Interface Language</div>
+                    <select class="dropdown-select" id="language-select">
+                        <option value="auto">Auto-detect</option>
+                        <option value="en">English</option>
+                        <option value="es">Spanish</option>
+                        <option value="fr">French</option>
+                        <option value="de">German</option>
+                        <option value="zh">Chinese</option>
+                        <option value="ja">Japanese</option>
+                        <option value="ru">Russian</option>
+                        <option value="pt">Portuguese</option>
+                        <option value="hi">Hindi</option>
+                    </select>
+                </div>
+                
+                <div class="settings-item">
+                    <div class="settings-item-label">AI Response Language</div>
+                    <select class="dropdown-select" id="ai-language-select">
+                        <option value="same">Same as interface</option>
+                        <option value="en">English</option>
+                        <option value="es">Spanish</option>
+                        <option value="fr">French</option>
+                        <option value="de">German</option>
+                        <option value="zh">Chinese</option>
+                        <option value="ja">Japanese</option>
+                        <option value="ru">Russian</option>
+                        <option value="pt">Portuguese</option>
+                        <option value="hi">Hindi</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="settings-section" id="chat-management-section">
+                <h3>Chat Management</h3>
+                <div class="settings-item">
+                    <div class="settings-item-label">Archived chats</div>
+                    <button class="manage-button" id="manage-archived">Manage</button>
+                </div>
+                
+                <button class="archive-all-button" id="archive-all">Archive all chats</button>
+                
+                <button class="delete-all-button" id="delete-all">Delete all chats</button>
+            </div>
+            
+            <div class="settings-section personalization-section" id="personalization-section" style="display: none;">
+                <h3>Personalization</h3>
+                <div class="settings-item">
+                    <div class="settings-item-label">Theme</div>
+                    <select class="dropdown-select" id="theme-select-personalization">
+                        <option value="dark">Dark</option>
+                        <option value="light">Light</option>
+                        <option value="system">System</option>
+                    </select>
+                </div>
+                
+                <div class="settings-item">
+                    <div class="settings-item-label">Font Size</div>
+                    <select class="dropdown-select" id="font-size-select">
+                        <option value="small">Small</option>
+                        <option value="medium" selected>Medium</option>
+                        <option value="large">Large</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="settings-section socials-section" id="profile-section" style="display: none;">
+                <h3>Socials</h3>
+                <div class="settings-item">
+                    <div class="settings-item-label">LinkedIn</div>
+                    <a href=""><i class="fab fa-linkedin"></i></a>
+                </div>
+                
+                <div class="settings-item">
+                    <div class="settings-item-label">YouTube</div>
+                    <a href=""><i class="fab fa-youtube"></i></a>
+                </div>
+                
+                <div class="settings-item">
+                    <div class="settings-item-label">Discord</div>
+                    <a href=""><i class="fab fa-discord"></i></a>
+                </div>
+                
+                <div class="settings-item">
+                    <div class="settings-item-label">GitHub</div>
+                    <a href=""><i class="fab fa-github"></i></a>
+                </div>
+                
+                <div class="settings-item">
+                    <div class="settings-item-label">Instagram</div>
+                    <a href=""><i class="fab fa-instagram"></i></a>
+                </div>
+                
+                <div class="settings-item">
+                    <div class="settings-item-label">Twitter</div>
+                    <a href=""><i class="fab fa-twitter"></i></a>
+                </div>
+                
+            </div>
+            
+            <div class="settings-section security-section" id="security-section" style="display: none;">
+                <h3>Security Settings</h3>
+                
+                <div class="settings-item">
+                    <div class="settings-item-label">Multi-Factor Authentication</div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="mfa-toggle">
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+                
+                <div class="settings-item mfa-methods" style="display: none;">
+                    <div class="settings-item-label">Authentication Method</div>
+                    <select class="dropdown-select" id="mfa-method-select">
+                        <option value="app">Authenticator App</option>
+                        <option value="sms">SMS</option>
+                        <option value="email">Email</option>
+                    </select>
+                </div>
+                
+                <div class="settings-section">
+                    <h3>Password Management</h3>
+                    <div class="change-password-form">
+                        <div class="form-group">
+                            <label for="current-password">Current Password</label>
+                            <input type="password" id="current-password" class="text-input">
+                        </div>
+                        <div class="form-group">
+                            <label for="new-password">New Password</label>
+                            <input type="password" id="new-password" class="text-input">
+                        </div>
+                        <div class="form-group">
+                            <label for="confirm-password">Confirm New Password</label>
+                            <input type="password" id="confirm-password" class="text-input">
+                        </div>
+                        <button class="save-button" id="change-password-btn">Change Password</button>
+                    </div>
+            </div>
+            
+            <div class="settings-section">
+                    <button class="logout-button" id="logout-btn">Log out on this device</button>
+                    <button class="logout-button" id="logout-all-btn">Log out on all devices</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get theme from localStorage
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.getElementById('theme-select').value = savedTheme;
+            document.getElementById('theme-select-personalization').value = savedTheme;
+            setTheme(savedTheme);
+            
+            // Theme select functionality
+            document.getElementById('theme-select').addEventListener('change', function(e) {
+                const theme = e.target.value;
+                setTheme(theme);
+                document.getElementById('theme-select-personalization').value = theme;
+                localStorage.setItem('theme', theme);
+            });
+            
+            document.getElementById('theme-select-personalization').addEventListener('change', function(e) {
+                const theme = e.target.value;
+                setTheme(theme);
+                document.getElementById('theme-select').value = theme;
+                localStorage.setItem('theme', theme);
+            });
+            
+            // Settings navigation
+            document.querySelectorAll('.settings-nav-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    // Remove active class from all tabs
+                    document.querySelectorAll('.settings-nav-item').forEach(tab => {
+                        tab.classList.remove('active');
+                    });
+                    
+                    // Add active class to clicked tab
+                    this.classList.add('active');
+                    
+                    // Hide all sections
+                    document.querySelectorAll('.settings-section').forEach(section => {
+                        section.style.display = 'none';
+                    });
+                    
+                    // Show sections based on the selected tab
+                    const section = this.dataset.section;
+                    if (section === 'general') {
+                        document.getElementById('general-section').style.display = 'block';
+                        document.getElementById('language-section').style.display = 'block';
+                        document.getElementById('chat-management-section').style.display = 'block';
+                    } else if (section === 'personalization') {
+                        document.getElementById('personalization-section').style.display = 'block';
+                    } else if (section === 'profile') {
+                        document.getElementById('profile-section').style.display = 'block';
+                    } else if (section === 'security') {
+                        document.getElementById('security-section').style.display = 'block';
+                    }
+                });
+            });
+            
+            // Restore settings sections visibility for the active tab on load
+            const activeTab = document.querySelector('.settings-nav-item.active');
+            if (activeTab) {
+                const section = activeTab.dataset.section;
+                if (section === 'general') {
+                    document.getElementById('general-section').style.display = 'block';
+                    document.getElementById('language-section').style.display = 'block';
+                    document.getElementById('chat-management-section').style.display = 'block';
+                } else {
+                    document.querySelectorAll('.settings-section').forEach(section => {
+                        section.style.display = 'none';
+                    });
+                    document.getElementById(section + '-section').style.display = 'block';
+                }
+            }
+            
+            // Language settings functionality
+            document.getElementById('language-select').addEventListener('change', function(e) {
+                const language = e.target.value;
+                localStorage.setItem('interfaceLanguage', language);
+                // Here you would add code to change the interface language
+                console.log('Interface language changed to', language);
+            });
+            
+            document.getElementById('ai-language-select').addEventListener('change', function(e) {
+                const language = e.target.value;
+                localStorage.setItem('aiLanguage', language);
+                console.log('AI response language changed to', language);
+            });
+            
+            // Initialize language settings from localStorage
+            const savedInterfaceLanguage = localStorage.getItem('interfaceLanguage') || 'auto';
+            const savedAILanguage = localStorage.getItem('aiLanguage') || 'same';
+            document.getElementById('language-select').value = savedInterfaceLanguage;
+            document.getElementById('ai-language-select').value = savedAILanguage;
+            
+            // Chat management functionality
+            document.getElementById('archive-all').addEventListener('click', function() {
+                if (confirm('Are you sure you want to archive all chats?')) {
+                    // Get current chats
+                    const currentChats = JSON.parse(localStorage.getItem('chats') || '[]');
+                    
+                    // Get existing archived chats
+                    const archivedChats = JSON.parse(localStorage.getItem('archivedChats') || '[]');
+                    
+                    // Add current chats to archived
+                    const newArchivedChats = [...archivedChats, ...currentChats];
+                    
+                    // Update localStorage
+                    localStorage.setItem('archivedChats', JSON.stringify(newArchivedChats));
+                    localStorage.setItem('chats', JSON.stringify([]));
+                    
+                    alert('All chats have been archived');
+                }
+            });
+            
+            document.getElementById('delete-all').addEventListener('click', function() {
+                if (confirm('Are you sure you want to delete all chats? This action cannot be undone.')) {
+                    // Delete from localStorage
+                    localStorage.setItem('chats', JSON.stringify([]));
+                    
+                    // If using Firebase, also delete from there
+                    if (typeof firebase !== 'undefined' && firebase.auth().currentUser) {
+                        const user = firebase.auth().currentUser;
+                        const db = firebase.firestore();
+                        
+                        // Get all conversations
+                        db.collection('users')
+                            .doc(user.uid)
+                            .collection('conversations')
+                            .get()
+                            .then((snapshot) => {
+                                // Create a batch to perform multiple deletes
+                                const batch = db.batch();
+                                
+                                snapshot.forEach((doc) => {
+                                    batch.delete(doc.ref);
+                                });
+                                
+                                // Commit the batch
+                                return batch.commit();
+                            })
+                            .then(() => {
+                                console.log('All conversations deleted successfully');
+                            })
+                            .catch((error) => {
+                                console.error('Error deleting conversations:', error);
+                            });
+                    }
+                    
+                    alert('All chats have been deleted');
+                }
+            });
+            
+            document.getElementById('manage-archived').addEventListener('click', function() {
+                // Here you would show archived chats management UI
+                alert('Archived chats management coming soon');
+            });
+            
+            // Social profiles functionality
+            document.getElementById('save-socials').addEventListener('click', function() {
+                const socialProfiles = {
+                    linkedin: document.getElementById('linkedin-profile').value,
+                    youtube: document.getElementById('youtube-profile').value,
+                    discord: document.getElementById('discord-profile').value,
+                    github: document.getElementById('github-profile').value,
+                    instagram: document.getElementById('instagram-profile').value,
+                    twitter: document.getElementById('twitter-profile').value
+                };
+                
+                localStorage.setItem('socialProfiles', JSON.stringify(socialProfiles));
+                alert('Social profiles saved successfully');
+            });
+            
+            // Load saved social profiles
+            const savedSocialProfiles = JSON.parse(localStorage.getItem('socialProfiles') || '{}');
+            if (savedSocialProfiles.linkedin) document.getElementById('linkedin-profile').value = savedSocialProfiles.linkedin;
+            if (savedSocialProfiles.youtube) document.getElementById('youtube-profile').value = savedSocialProfiles.youtube;
+            if (savedSocialProfiles.discord) document.getElementById('discord-profile').value = savedSocialProfiles.discord;
+            if (savedSocialProfiles.github) document.getElementById('github-profile').value = savedSocialProfiles.github;
+            if (savedSocialProfiles.instagram) document.getElementById('instagram-profile').value = savedSocialProfiles.instagram;
+            if (savedSocialProfiles.twitter) document.getElementById('twitter-profile').value = savedSocialProfiles.twitter;
+            
+            // Multi-factor authentication
+            document.getElementById('mfa-toggle').addEventListener('change', function(e) {
+                const mfaEnabled = e.target.checked;
+                document.querySelector('.mfa-methods').style.display = mfaEnabled ? 'flex' : 'none';
+                if (mfaEnabled) {
+                    alert('You will be redirected to set up MFA');
+                    // Here you would redirect to MFA setup
+                }
+            });
+            
+            // Password change functionality
+            document.getElementById('change-password-btn').addEventListener('click', function() {
+                const currentPassword = document.getElementById('current-password').value;
+                const newPassword = document.getElementById('new-password').value;
+                const confirmPassword = document.getElementById('confirm-password').value;
+                
+                if (!currentPassword || !newPassword || !confirmPassword) {
+                    alert('Please fill in all password fields');
+                    return;
+                }
+                
+                if (newPassword !== confirmPassword) {
+                    alert('New passwords do not match');
+                    return;
+                }
+                
+                // Here you would check current password and update with new one
+                alert('Password changed successfully');
+                
+                // Clear fields
+                document.getElementById('current-password').value = '';
+                document.getElementById('new-password').value = '';
+                document.getElementById('confirm-password').value = '';
+            });
+            
+            // Logout functionality
+            document.getElementById('logout-btn').addEventListener('click', function() {
+                if (confirm('Are you sure you want to log out?')) {
+                    // Here you would call your logout function
+                    window.location.href = '/';
+                }
+            });
+            
+            document.getElementById('logout-all-btn').addEventListener('click', function() {
+                if (confirm('Are you sure you want to log out on all devices?')) {
+                    // Here you would call your logout all devices function
+                    window.location.href = '/';
+                }
+            });
+        });
+        
+        // Set theme function
+        function setTheme(theme) {
+            if (theme === 'dark') {
+                document.body.classList.add('dark-theme');
+            } else {
+                document.body.classList.remove('dark-theme');
+            }
+        }
+    </script>
+</body>
+</html> 

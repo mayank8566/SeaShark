@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SeaShark</title>
+    <link rel="icon" href="/assets/logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="styles/main.css?v=4">
+    <link rel="stylesheet" href="styles/sidebar.css?v=4">
+    <link rel="stylesheet" href="styles/chat.css?v=4">
+    <link rel="stylesheet" href="styles/animations.css?v=4">
+    <link rel="stylesheet" href="styles/responsive.css?v=4">
+    <link rel="stylesheet" href="styles/code.css?v=4">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <!-- Sidebar open button (outside of app-container) -->
+    <button id="sidebar-open-button" class="sidebar-open-button">
+        <i class="fas fa-bars"></i>
+    </button>
+    
+    <!-- Authentication Page -->
+    <div id="auth-container" class="auth-container animate-fade-in">
+        <div class="auth-card">
+            <div class="auth-header">
+                <div class="auth-logo">
+                    <img src="/assets/logo.png" 
+                         alt="SeaShark Logo" 
+                         onerror="this.src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAADtUlEQVR4nO2ZTWhcVRTHf+fNTKaLaiMoig26EbQiIlRBRFwUP8CNUEWsuHLhRkXc+LFQcOWiK6G4U0GhfmDduBIKokgRBbUUlKK1JpPkzZvx43rvTvJmJslMMu/dhPnDgTf3nnfP/59z77v3nAvLWMZSY1rVUBKdgP4Mjm6BnavhyEoI5+tXSChYfw7OjoW3iqF+FEfBsoSQxMZV8PxG2LEG+mJfETCyBJ8ew/HXj5O4A5DsDjh80wiuXAnfvgH9/f6Nf38Bd+yF+dyzEnhxE5xYB4Gt5Qxw7AyMPOZdvTfglvUwiA/OXOIVMHUWHtzv3xVrYHgtnWEUGBiCwTz6Lp4Eq7x1Dd15WHuR57wBjdXGz6H/Zq/Xe+chzMv59RA/UMZfYvWob28I+KkRfHxwCr/ZM+1H4ORJr/1gFcyFbn79VgPdTAy/8CtM/JxOE0XGwJwCOj1pFnD0aZgaSadJzHmXVKrLg0m5fz20jxr0oG+iVprJWGlQp3i/L6xO3CyQqI73KVmX1z0gFsOFmUdm+5ycWCWlWnqj2vdjO9IHl64+n6X8Vh8/7qCBijUYqYhxCaWV5lQ66Usi+l4d8w1oX2LTXjVqCPgNbq2PD5Uep+p18/UbSAyY6D3RjgvQTTD13gCzLyEzSfdQwVlp1qfQ6T+TJhRwCc4pGIfpRY5KLVXEr1s2MjqQSPYlJsYtKiDT+4Ca7Zb/h2dAS9ZAUr2YKb1/HbgAZb+INdlDtQqUjXmFPAMamQTM1t9bLl8JxA4R6gRRd6AmYWcRu3F7eaP/ItVcTasFzIXN4lQZOXm5SZD5wAJXDXSu31fmA/zWDQPX02DUw//tSZJZrAZNvIWk2zPiBnWjwFsL3a8TqZFM5wOlY0kCXk1niaV/C4xP/VvaLKJEBrDvLLy3J53PGrx9FD4YTuPSsckjqU7AZ7/ATzPs9LvHYehzmJ/xJlLjoX44tRH6Ul9JAvPw9s9w7T6YWAB5A/YNwY+Pw8UdnmEMbPsajgyXWOCxLfDu3XBp94MIrr0F3t8Nj1w1e3/TxmIUsHkt3LsOdq0FW3mCBfKKyMEPR+C9I3hbKn4j/lfzQBLdA/oh7NoIdwyWW2oXCH8UrO8P0r97K34jXqoZOQRbd8MHK2HfZhjq7qI2ZeD7k/D193zx6ynebqWtTtTqP8Jb4PpBuLkP7u5Pf4lO0TYGHJ6DT86gH85xsBXzLWMZ/zX+AUYpCDf10k7mAAAAAElFTkSuQmCC'; this.onerror='';">
+                    <i class="fas fa-robot" style="display: none;"></i>
+                </div>
+                <h1>SeaShark</h1>
+                <p>Sign in to continue to your AI assistant</p>
+            </div>
+
+            <div class="auth-tabs">
+                <button id="login-tab" class="auth-tab active">Login</button>
+                <button id="register-tab" class="auth-tab">Register</button>
+            </div>
+
+            <!-- Login Form -->
+            <form id="login-form" class="auth-form">
+                <div class="form-group">
+                    <label for="login-email">Email</label>
+                    <input type="email" id="login-email" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" placeholder="Enter your password" required>
+                </div>
+                <div class="form-footer">
+                    <div class="remember-me">
+                        <input type="checkbox" id="remember-me">
+                        <label for="remember-me">Remember me</label>
+                    </div>
+                    <a href="#" class="forgot-password">Forgot password?</a>
+                </div>
+                <button type="submit" class="auth-button">Login</button>
+            </form>
+
+            <!-- Register Form -->
+            <form id="register-form" class="auth-form" style="display: none;">
+                <div class="form-group">
+                    <label for="register-name">Full Name</label>
+                    <input type="text" id="register-name" placeholder="Enter your full name" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-email">Email</label>
+                    <input type="email" id="register-email" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-password">Password</label>
+                    <input type="password" id="register-password" placeholder="Create a password" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-confirm-password">Confirm Password</label>
+                    <input type="password" id="register-confirm-password" placeholder="Confirm your password" required>
+                </div>
+                <div class="terms">
+                    <input type="checkbox" id="terms" required>
+                    <label for="terms">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy
+                            Policy</a></label>
+                </div>
+                <button type="submit" class="auth-button">Create Account</button>
+            </form>
+
+            <div class="auth-providers">
+                <p>Or continue with</p>
+                <div class="auth-provider-buttons">
+                    <button class="provider-button google">
+                        <i class="fab fa-google"></i>
+                        <span>Google</span>
+                    </button>
+                    <button class="provider-button github">
+                        <i class="fab fa-github"></i>
+                        <span>GitHub</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Chat App (initially hidden) -->
+    <div id="app-container" class="app-container" style="display: none;">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <img src="/assets/logo.png" 
+                         alt="SeaShark" 
+                         class="logo-image" 
+                         onerror="this.src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAAsTAAALEwEAmpwYAAAC/ElEQVR4nO2WTUhUURTHf+fNjGmLNiVBC9sEQosWQVC0qU0Q1KYIWrWoTas2QdCHRIsIXLUoogjaRBAtWkQfqxaRRRG0KAiLisCyD3UGZ+a9mfv33HvmzYwz87yviO7id3nvnPu/5557z7kXlrCEYiGWn0QkIlJX6rq+wHGckEIIhP4LgWu6dD07STc2sfj8OTSjKQlQNI8ePYPjuIyObOKZ+Qg7YzB2CHVqPqYA50/vJX1jBMW9DHatgvZ6VNY1tM/GhPYvAlEfANM0I4lEYjgajQ6UGpVpmkQikSHHcd4NXx8zrGgUMnXc/A43XkJnA+ythZEIZDLQZMCkBQvI/Y5p/wlIJpMxTdMOlkMgmUwyMHAU1nQTzazFqIb0Ntjyra8a+Aa9u+CY76BHYmDcxJVzP2S/l4Bt2x2O4+wpVwFt5ihmVXXuu3OqHa4aUDdYINMPiaxPQMNl2xLXt1NFxQ/dtwqEjgKQyWScgYGBc0BZBGLRDMmE20+yjK5th+Yb0O4n7F72dBjEZsGR/cB0COhDILl5KwhT30b7vQNGvQjkUWAKjgTRf/sE7AX0q+AWXS0Rql+jfD+JmR+BdvClFCDXVRSBtLgFP7YK9jXCOxO6PPu3g6oGI6DgENzqg0/XoCabB39+/fAcK5qArpdhT4MAJxrgTAss/ycG3T2QDYH4FKhFU6BqB55TDzpgg2mq/Gqog4RX22HvoQXQTX4qfBUUJiBFVAJeRyRz9ZpHQqQsBBqYIa9CsAcszO5QD87jxKpgdQw+a3C7FdYshwY9nKJSIw6LL6F+HrQIHO7zoiF9FQ2ByB14cBT6H0DqdL4KSmAC7fEzRMvTqKoaaBXYdDy4Cmx4+wTe9MOLCRjUZP2JhWPC7DSMZ+PsTctswS1YMRtW2jA3TKHzKiGU7jdU98Ljh8FToGZBz2IwFNoXCTXuNnz5GWwaZQHQS4GnRVcB3oTvdnCz0MlHQGE2M1oJBGwP+pTXUQYKDlWCWGYj5aLUeYwlLP0BUZkYh1WzNjsAAAAASUVORK5CYII='; this.onerror='';">
+                    <i class="fas fa-robot" style="display: none;"></i>
+                    <span>SeaShark</span>
+                </div>
+                <button class="sidebar-toggle" id="sidebar-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+
+            <!-- Conversations List - will be populated dynamically -->
+            <div id="conversations-container">
+                <!-- Empty state for no conversations -->
+                <div id="empty-conversations" class="empty-conversations">
+                    <div class="empty-icon">
+                        <i class="far fa-comments"></i>
+                    </div>
+                    <p>No conversations yet</p>
+                    <p class="empty-subtitle">Start a new chat to begin</p>
+                </div>
+
+                <!-- Conversation sections will be added here dynamically -->
+            </div>
+
+            <div class="sidebar-footer">
+                <div class="upgrade-plan">
+                    <a href="pricing.html" class="upgrade-button">
+                        <i class="fas fa-crown"></i>
+                        <span>Upgrade Plan</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Chat Container -->
+        <div class="chat-container">
+            <div class="chat-header">
+                <div class="header-left">
+                    <button class="sidebar-toggle-mobile" id="sidebar-toggle-mobile">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h2 class="chat-title">New Chat</h2>
+                </div>
+                <div class="chat-header-actions">
+                    <div class="user-profile">
+                        <img src="https://ui-avatars.com/api/?name=User&background=3b82f6&color=fff" alt="User"
+                            id="user-avatar">
+                        <!-- User dropdown menu -->
+                        <div class="dropdown-menu">
+                            <div class="dropdown-menu-item" data-action="explore">
+                                <i class="fas fa-robot"></i>
+                                <span>Explore Models</span>
+                            </div>
+                            <div class="dropdown-menu-item" data-action="customize">
+                                <i class="fas fa-sliders-h"></i>
+                                <span>Customize Appearance</span>
+                            </div>
+                            <div class="dropdown-menu-item" data-action="settings">
+                                <i class="fas fa-cog"></i>
+                                <span>Settings</span>
+                            </div>
+                            <div class="dropdown-menu-divider"></div>
+                            <div class="dropdown-menu-item" data-action="upgrade">
+                                <i class="fas fa-crown"></i>
+                                <span>Upgrade Plan</span>
+                            </div>
+                            <div class="dropdown-menu-divider"></div>
+                            <div class="dropdown-menu-item" data-action="logout" id="logout-menu-item">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span>Log out</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chat-messages">
+                <!-- Welcome Screen -->
+                <div class="welcome-screen animate-fade-in">
+                    <h1 class="welcome-title">How can I help you today?</h1>
+                    <p class="welcome-subtitle">Ask me anything or try one of these examples:</p>
+
+                    <div class="examples-container">
+                        <div class="example-card stagger-item hover-lift">
+                            <h3 class="example-card-title">Plan a trip</h3>
+                            <p>Help me plan a 7-day trip to Japan with a detailed itinerary.</p>
+                        </div>
+                        <div class="example-card stagger-item hover-lift">
+                            <h3 class="example-card-title">Write code</h3>
+                            <p>Create a JavaScript function to fetch and display weather data from an API.</p>
+                        </div>
+                        <div class="example-card stagger-item hover-lift">
+                            <h3 class="example-card-title">Learn something</h3>
+                            <p>Explain quantum computing to me in simple terms.</p>
+                        </div>
+                        <div class="example-card stagger-item hover-lift">
+                            <h3 class="example-card-title">Get creative</h3>
+                            <p>Write a short poem about artificial intelligence and humanity.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chat Messages will be added here -->
+            </div>
+
+            <div class="chat-input-container">
+                <div class="chat-input-wrapper">
+                    <textarea id="chat-input" class="chat-input" placeholder="You'r Message..." rows="1"></textarea>
+                    <button id="chat-submit" class="chat-submit" disabled>
+                        <i class="fa-solid fa-arrow-up"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settings-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Settings</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="settings-section">
+                    <h3>Appearance</h3>
+                    <div class="theme-selector">
+                        <span>Theme</span>
+                        <div class="theme-options">
+                            <button class="theme-option light active" data-theme="light">
+                                <i class="fas fa-sun"></i>
+                                <span>Light</span>
+                            </button>
+                            <button class="theme-option dark" data-theme="dark">
+                                <i class="fas fa-moon"></i>
+                                <span>Dark</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="settings-section">
+                    <h3>Social Media</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-link">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-discord"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="settings-section">
+                    <h3>Account</h3>
+                    <button id="logout-button" class="settings-button danger">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+
+    <!-- App JS -->
+    <script src="js/firebase-config.js?v=4"></script>
+    <script src="js/app.js?v=4"></script>
+</body>
+
+</html>

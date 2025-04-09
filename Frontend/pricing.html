@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing - SeaShark</title>
+    <link rel="icon" href="/assets/logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="/styles/animations.css">
+    <link rel="stylesheet" href="/styles/responsive.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            overflow-y: auto;
+            overflow-x: hidden;
+            height: auto;
+            min-height: 100vh;
+        }
+        
+        /* Dark theme overrides for pricing page */
+        body.dark-theme .plan-price {
+            color: var(--color-primary-hover);
+        }
+        
+        body.dark-theme .popular-badge {
+            background-color: var(--color-primary);
+        }
+        
+        body.dark-theme .plan-button.primary {
+            background-color: var(--color-primary-hover);
+            border-color: var(--color-primary-hover);
+        }
+        
+        body.dark-theme .footer-cta {
+            background-color: var(--color-primary-hover);
+        }
+        
+        body.dark-theme .pricing-title {
+            background: linear-gradient(90deg, var(--color-primary-hover), #55a3ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+        
+        .pricing-header {
+            text-align: center;
+            padding: 4rem 1rem 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .pricing-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .pricing-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-color-secondary);
+            max-width: 600px;
+            margin: 0 auto 3rem;
+        }
+        
+        .pricing-plans {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            padding: 0 1rem 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .pricing-plan {
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            width: 100%;
+            max-width: 350px;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .pricing-plan:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px var(--shadow-color);
+        }
+        
+        .plan-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .plan-price {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--color-primary);
+        }
+        
+        .plan-price span {
+            font-size: 1rem;
+            color: var(--text-color-secondary);
+        }
+        
+        .plan-description {
+            color: var(--text-color-secondary);
+            margin-bottom: 1.5rem;
+        }
+        
+        .plan-features {
+            list-style: none;
+            margin-bottom: 2rem;
+            flex-grow: 1;
+        }
+        
+        .plan-features li {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+        
+        .plan-features i {
+            color: var(--color-success);
+            margin-right: 0.75rem;
+            margin-top: 0.25rem;
+        }
+        
+        .plan-cta {
+            text-align: center;
+        }
+        
+        .plan-button {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background-color: var(--bg-color-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-color);
+            font-weight: 600;
+            text-decoration: none;
+            transition: background-color 0.2s;
+            width: 100%;
+        }
+        
+        .plan-button:hover {
+            background-color: var(--hover-bg);
+            text-decoration: none;
+        }
+        
+        .plan-button.primary {
+            background-color: var(--color-primary);
+            color: white;
+            border-color: var(--color-primary);
+        }
+        
+        .plan-button.primary:hover {
+            background-color: var(--color-primary-hover);
+        }
+        
+        .header-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            border-bottom: 1px solid var(--border-color);
+            background-color: var(--bg-color);
+        }
+        
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--text-color);
+            text-decoration: none;
+        }
+        
+        .nav-logo i {
+            color: var(--color-primary);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        .nav-link {
+            color: var(--text-color-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        
+        .nav-link:hover {
+            color: var(--color-primary);
+            text-decoration: none;
+        }
+        
+        .nav-link.active {
+            color: var(--color-primary);
+        }
+        
+        .popular-badge {
+            position: absolute;
+            top: -12px;
+            right: -12px;
+            background-color: var(--color-accent);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .pricing-footer {
+            text-align: center;
+            padding: 3rem 1rem;
+            background-color: var(--bg-color-secondary);
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .footer-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-text {
+            color: var(--text-color-secondary);
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+        
+        .footer-cta {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background-color: var(--color-primary);
+            color: white;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background-color 0.2s;
+        }
+        
+        .footer-cta:hover {
+            background-color: var(--color-primary-hover);
+            text-decoration: none;
+        }
+        
+        @media (max-width: 768px) {
+            .pricing-title {
+                font-size: 2rem;
+            }
+            
+            .pricing-plans {
+                gap: 1rem;
+            }
+            
+            .pricing-plan {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header-nav">
+        <a href="/" class="nav-logo">
+            <img src="/assets/logo.png" alt="SeaShark Logo" class="logo-image">
+            <span>SeaShark</span>
+        </a>
+        <nav class="nav-links">
+            <a href="/" class="nav-link">Home</a>
+            <a href="/pricing" class="nav-link active">Pricing</a>
+            <a href="#" class="nav-link" id="theme-toggle">
+                <i class="fas fa-moon"></i>
+            </a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="pricing-header">
+            <h1 class="pricing-title">Choose the Right Plan</h1>
+            <p class="pricing-subtitle">Get access to powerful AI chat features with our flexible pricing plans designed to fit your needs.</p>
+        </section>
+
+        <section class="pricing-plans">
+            <div class="pricing-plan animate-fade-in" style="animation-delay: 0.1s;">
+                <h2 class="plan-name">Free</h2>
+                <div class="plan-price">$0 <span>/month</span></div>
+                <p class="plan-description">Get started with basic AI chat capabilities.</p>
+                <ul class="plan-features">
+                    <li><i class="fas fa-check"></i> 25 messages per day</li>
+                    <li><i class="fas fa-check"></i> Basic conversation memory</li>
+                    <li><i class="fas fa-check"></i> Standard response time</li>
+                    <li><i class="fas fa-check"></i> Web interface access</li>
+                </ul>
+                <div class="plan-cta">
+                    <a href="/" class="plan-button">Get Started</a>
+                </div>
+            </div>
+
+            <div class="pricing-plan animate-fade-in" style="animation-delay: 0.2s; position: relative; border-color: var(--color-primary);">
+                <div class="popular-badge">Most Popular</div>
+                <h2 class="plan-name">Premium</h2>
+                <div class="plan-price">$12 <span>/month</span></div>
+                <p class="plan-description">Perfect for professionals and regular users.</p>
+                <ul class="plan-features">
+                    <li><i class="fas fa-check"></i> Unlimited messages</li>
+                    <li><i class="fas fa-check"></i> Advanced conversation memory</li>
+                    <li><i class="fas fa-check"></i> Priority response time</li>
+                    <li><i class="fas fa-check"></i> Web and mobile access</li>
+                    <li><i class="fas fa-check"></i> Custom AI personalities</li>
+                    <li><i class="fas fa-check"></i> File uploads & analysis</li>
+                </ul>
+                <div class="plan-cta">
+                    <a href="#" class="plan-button primary">Upgrade Now</a>
+                </div>
+            </div>
+
+            <div class="pricing-plan animate-fade-in" style="animation-delay: 0.3s;">
+                <h2 class="plan-name">Enterprise</h2>
+                <div class="plan-price">$49 <span>/month</span></div>
+                <p class="plan-description">Ideal for teams and businesses.</p>
+                <ul class="plan-features">
+                    <li><i class="fas fa-check"></i> Everything in Premium</li>
+                    <li><i class="fas fa-check"></i> Team collaboration</li>
+                    <li><i class="fas fa-check"></i> Custom integrations</li>
+                    <li><i class="fas fa-check"></i> Advanced analytics</li>
+                    <li><i class="fas fa-check"></i> Dedicated support</li>
+                    <li><i class="fas fa-check"></i> API access</li>
+                </ul>
+                <div class="plan-cta">
+                    <a href="#" class="plan-button">Contact Sales</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="pricing-footer">
+            <h2 class="footer-title">Still not sure?</h2>
+            <p class="footer-text">Try our free plan with no commitment and explore the power of our AI chat interface. Upgrade anytime to access more features.</p>
+            <a href="/" class="footer-cta">Try for Free</a>
+        </section>
+    </main>
+
+    <script>
+        // Theme handling
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get theme from localStorage
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            setTheme(savedTheme);
+            
+            // Theme toggle functionality
+            const themeToggle = document.getElementById('theme-toggle');
+            themeToggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                const currentTheme = document.body.classList.contains('dark-theme') ? 'dark' : 'light';
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                setTheme(newTheme);
+                localStorage.setItem('theme', newTheme);
+            });
+        });
+        
+        // Set theme function
+        function setTheme(theme) {
+            const themeToggle = document.getElementById('theme-toggle');
+            if (theme === 'dark') {
+                document.body.classList.add('dark-theme');
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            } else {
+                document.body.classList.remove('dark-theme');
+                themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+            }
+        }
+    </script>
+</body>
+</html> 
