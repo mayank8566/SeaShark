@@ -116,7 +116,7 @@ async def ask_question(message: Message):
         headers = {
             "Authorization": f"Bearer {OPENROUTER_API_KEY}",
             "Content-Type": "application/json",
-            "HTTP-Referer": "https://aichatinterface.com",  # Replace with your actual site
+            "Referer": "https://seashark.onrender.com",
             "X-Title": "AI Chat Interface"
         }
         
