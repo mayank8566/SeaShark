@@ -112,6 +112,23 @@ Previous conversations are saved and can be accessed from the sidebar.
 
 - `GET /pricing`: Access the pricing page for premium plans
 
+## Deploying to Render
+
+When deploying to Render, follow these steps to configure the environment:
+
+1. In your Render dashboard, go to your web service
+2. Navigate to the "Environment" tab
+3. Add the following environment variable:
+   - Key: `OPENROUTER_API_KEY`
+   - Value: Your OpenRouter API key (starts with `sk-or-v1-...`)
+
+This is crucial for API authentication to work correctly. Without this environment variable set, you'll receive 401 Unauthorized errors when trying to chat with DeepSeek R1.
+
+To verify your app logs in Render:
+1. Go to your web service dashboard
+2. Click on "Logs" 
+3. Check for any authentication errors
+
 ## License
 
 MIT 

@@ -27,7 +27,27 @@ app.add_middleware(
 )
 
 # OpenRouter API configuration (for accessing Deepseek models)
-OPENROUTER_API_KEY = os.getenv("DEEPSEEK_API_KEY", "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")
+# Read the API key from environment variable, handling the case where it might be empty or None
+OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
+if not OPENROUTER_API_KEY:
+    # Try alternate environment variable name
+    OPENROUTER_API_KEY = os.getenv("DEEPSEEK_API_KEY")
+    if not OPENROUTER_API_KEY:
+        # Fallback to the key from api.txt file if environment variables not set
+        try:
+            api_file_path = os.path.join(os.path.dirname(parent_dir), "api.txt")
+            if os.path.exists(api_file_path):
+                with open(api_file_path, "r") as f:
+                    api_content = f.read().strip()
+                    if "sk-or-v1" in api_content:
+                        OPENROUTER_API_KEY = api_content.split("=")[-1].strip()
+        except Exception as e:
+            logger.error(f"Error reading API key from file: {str(e)}")
+        
+        # Final fallback to hardcoded key (not recommended for production)
+        if not OPENROUTER_API_KEY:
+            OPENROUTER_API_KEY = "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"
+
 OPENROUTER_API_URL = "https://openrouter.ai/api/v1/chat/completions"
 
 class Message(BaseModel):
@@ -112,6 +132,11 @@ async def test():
 async def ask_question(message: Message):
     logger.info(f"Received message: {message.content}")
     try:
+        # Validate API key before proceeding
+        if not OPENROUTER_API_KEY or OPENROUTER_API_KEY.strip() == "":
+            logger.error("API key is missing or empty")
+            raise HTTPException(status_code=500, detail="API key is not configured")
+            
         # Format the headers according to OpenRouter API requirements
         headers = {
             "Authorization": f"Bearer {OPENROUTER_API_KEY}",
